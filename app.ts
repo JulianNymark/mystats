@@ -4,8 +4,10 @@ import * as cron from 'cron'
 import * as pg from 'pg'
 
 import { secrets, log, dbConnect } from './setup'
+import * as myoauth from './oauth';
 
 const url = 'https://api.fitbit.com';
+
 let access_token = '';
 let pgclient: pg.Client;
 
@@ -18,16 +20,6 @@ function todayFormatted() {
     const today = moment();
     const todayFormatted = today.format('YYYY-MM-DD');
     return todayFormatted;
-}
-
-async function refreshAccessToken() {
-    const refresh_request = await agent.post(url + '/oauth2/token')
-        .set('Authorization', `${secrets.AUTH_HEADER}`)
-        .send('grant_type=refresh_token')
-        .send(`refresh_token=${secrets.REFRESH_TOKEN}`);
-
-    access_token = refresh_request.body.access_token;
-    log.info(access_token);
 }
 
 async function getHeartData(today: string) {
@@ -66,11 +58,12 @@ async function insertHeartData(heartData: Array<{ time: string, value: number }>
     await pgclient.end()
 }
 
+// TODO: cron
 async function main() {
     const today = todayFormatted();
 
     pgclient = await dbConnect();
-    await refreshAccessToken();
+    await myoauth.refreshAccessToken(url, agent);
     const heartData = await getHeartData(today);
 
     await insertHeartData(heartData, today);

@@ -20,6 +20,8 @@ PG_DBNAME=<your_pg_dbname>
 
 set up a postgres DB with the appropriate user, db, password, permissions... etc (must match the values you entered in your `.env` file)
 
+the schema used is in `tableschema.sql`
+
 ## running
 
 assuming you have all the above in order! simply run:
