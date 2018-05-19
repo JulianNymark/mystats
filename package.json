@@ -1,0 +1,28 @@
+{
+  "name": "mystats",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc -p . ; node ./build/app.js",
+    "watch": "tsc -w",
+    "start-no-compile": "node ./build/app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/cron": "^1.3.0",
+    "@types/dotenv": "^4.0.3",
+    "@types/moment": "^2.13.0",
+    "@types/pg": "^7.4.9",
+    "@types/superagent": "^3.5.8",
+    "@types/winston": "^2.3.9",
+    "cron": "^1.3.0",
+    "dotenv": "^5.0.1",
+    "moment": "^2.22.1",
+    "pg": "^7.4.3",
+    "superagent": "^3.8.3",
+    "winston": "^3.0.0-rc5"
+  }
+}
