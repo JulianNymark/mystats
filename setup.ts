@@ -24,28 +24,42 @@ winston.configure({
 });
 
 const {
-    REFRESH_TOKEN,
     AUTH_HEADER,
+    REFRESH_TOKEN,
     PG_USER,
     PG_PASSWORD,
     PG_DBNAME,
 } = process.env;
 
 export const secrets = {
-    REFRESH_TOKEN: String(REFRESH_TOKEN),
     AUTH_HEADER: String(AUTH_HEADER),
+    REFRESH_TOKEN: String(REFRESH_TOKEN),
 }
 
 export const log = winston;
 
 
-export function dbConnect() {
+export function dbConnectPool() {
+
+    const pool = new pg.Pool({
+        host: 'localhost',
+        database: PG_DBNAME,
+        user: PG_USER,
+        password: PG_PASSWORD,
+        max: 20,
+        idleTimeoutMillis: 30000,
+        connectionTimeoutMillis: 2000,
+    })
+
+    return pool;
+}
+
+export function dbConnectClient() {
     const client = new pg.Client({
         database: PG_DBNAME,
         user: PG_USER,
         password: PG_PASSWORD,
-    });
-
+    })
     return client;
 }
 
