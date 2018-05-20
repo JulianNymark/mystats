@@ -14,7 +14,7 @@ export async function refreshTokens(
             .send('grant_type=refresh_token')
             .send(`refresh_token=${refreshToken}`).catch((err) => {
                 log.error(err);
-                throw err;
+                process.exit(1); // exit here, since we don't want to continue failing forever (and bloating error.log)
             });
     } catch (err) {
         log.error(err);

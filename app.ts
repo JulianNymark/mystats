@@ -62,12 +62,7 @@ new cron.CronJob('0 * * * * *', async function () {
     const today = moment().format('YYYY-MM-DD');
 
     // FIXME: maybe not generate new tokens every time? /shrug
-    // FIXME: unhandled promises not caughty properly here, but Error: Unauthorized usually means get new REFRESH_TOKEN
-    [access_token, refresh_token] = await myoauth.refreshTokens(url, agent, refresh_token)
-        .catch((err) => {
-            log.error(err);
-            return;
-        });
+    [access_token, refresh_token] = await myoauth.refreshTokens(url, agent, refresh_token);
     log.info('NEW REFRESH_TOKEN: ' + refresh_token);
 
     pgClient = dbConnectClient();
@@ -91,7 +86,6 @@ new cron.CronJob('30 0 */2 * * *', async function () {
     [access_token, refresh_token] = await myoauth.refreshTokens(url, agent, refresh_token)
         .catch((err) => {
             log.error(err);
-            return;
         });
     log.info('NEW REFRESH_TOKEN: ' + refresh_token);
 
