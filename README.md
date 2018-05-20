@@ -1,3 +1,18 @@
+# fitbit data export & db ingestion tool!
+
+![screenshot of terminal](./screenshots/mystats.png)
+
+## status of project:
+- [ ] activity	
+- [x] heartrate
+- [ ] location	
+- [ ] nutrition
+- [ ] profile	
+- [ ] settings	
+- [ ] sleep	
+- [ ] social
+- [ ] weight
+
 # how to:
 
 ## configuration:
